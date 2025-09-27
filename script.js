@@ -29,8 +29,9 @@ form.addEventListener("submit", function (event) {
   attendanceCount.textContent = count;
 
   //Update progress bar
-  const percentage = Math.round((count / maxCount) * 100) + "%";
-  console.log(`Progress: ${percentage}`);
+  const percentage = Math.round((count / maxCount) * 100);
+  progressBar.style.width = percentage + "%";
+  console.log(`Progress: ${percentage}%`);
 
   //Update team counter
   const teamCounter = document.getElementById(team + "Count");
