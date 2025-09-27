@@ -238,19 +238,23 @@ button .fas {
 }
 
 /* Messages */
-#greeting {
-  font-weight: 500;
-  font-size: 18px;
-  padding: 16px 20px;
-  border-radius: 8px;
-  color: #333;
-  margin-bottom: 15px;
-  display: none;
-}
 
 .success-message {
   background-color: #e8f4fc;
   color: #003c71;
+}
+
+.greeting-fun {
+  font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  background: linear-gradient(135deg, rgba(0, 153, 219, 0.9) 0%,  rgba(0, 104, 181, 0.9) 50%, rgba(0, 60, 116, 0.9) 100%);
+  color: white;
+  padding: 18px 24px;
+  border-radius: 12px;
+  margin-bottom: 18px;
+  text-align: center;
+  transition: all 0.3s;
 }
 
 /* Counter */

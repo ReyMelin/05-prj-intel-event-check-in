@@ -2,7 +2,9 @@
 const form = document.getElementById("checkInForm");
 const nameInput = document.getElementById("attendeeName");
 const teamSelect = document.getElementById("teamSelect");
-const greeting = document.getElementById("greeting");
+const messageElement = document.getElementById("greeting");
+const progressBar = document.getElementById("progressBar");
+const attendanceCount = document.getElementById("attendeeCount");
 
 // Track attendance
 let count = 0;
@@ -23,6 +25,9 @@ form.addEventListener("submit", function (event) {
   count++;
   console.log("Total Check-ins: ", count);
 
+  // Show updated attendee count
+  attendanceCount.textContent = count;
+
   //Update progress bar
   const percentage = Math.round((count / maxCount) * 100) + "%";
   console.log(`Progress: ${percentage}`);
@@ -32,9 +37,10 @@ form.addEventListener("submit", function (event) {
   teamCounter.textContent = parseInt(teamCounter.textContent) + 1;
 
   // Show welcome message
-  const greeting = `Welcome, ${name} from ${teamName}!`;
-  greeting.textContent = greeting;
-  console.log(greeting);
+  const message = `🎉 Welcome, ${name} from ${teamName}! 🌟`;
+  messageElement.textContent = message;
+  messageElement.className = "greeting-fun";
+  console.log(message);
 
   // Reset the form
   form.reset();
