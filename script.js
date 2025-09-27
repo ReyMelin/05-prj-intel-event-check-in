@@ -8,7 +8,7 @@ const attendanceCount = document.getElementById("attendeeCount");
 
 // Track attendance
 let count = 0;
-const maxCount = 50; // Maximum number of attendees
+const maxCount = 15 // Maximum number of attendees
 
 // Handle form submission
 form.addEventListener("submit", function (event) {
@@ -37,11 +37,40 @@ form.addEventListener("submit", function (event) {
   const teamCounter = document.getElementById(team + "Count");
   teamCounter.textContent = parseInt(teamCounter.textContent) + 1;
 
-  // Show welcome message
-  const message = `🎉 Welcome, ${name} from ${teamName}! 🌟`;
-  messageElement.textContent = message;
-  messageElement.className = "greeting-fun";
-  console.log(message);
+  // Check if goal reached
+  if (count >= maxCount) {
+    // Find winning team
+    const waterCount = parseInt(
+      document.getElementById("waterCount").textContent
+    );
+    const zeroCount = parseInt(
+      document.getElementById("zeroCount").textContent
+    );
+    const powerCount = parseInt(
+      document.getElementById("powerCount").textContent
+    );
+
+    let winningTeam = "Team Water Wise";
+    let maxTeamCount = waterCount;
+    if (zeroCount > maxTeamCount) {
+      winningTeam = "Team Net Zero";
+      maxTeamCount = zeroCount;
+    }
+    if (powerCount > maxTeamCount) {
+      winningTeam = "Team Renewables";
+      maxTeamCount = powerCount;
+    }
+
+    const celebration = `🏆 Goal reached! Congratulations, ${winningTeam}! 🎊`;
+    messageElement.textContent = celebration;
+    messageElement.className = "greeting-fun";
+  } else {
+    // Show welcome message
+    const message = `🎉 Welcome, ${name} from ${teamName}! 🌟`;
+    messageElement.textContent = message;
+    messageElement.className = "greeting-fun";
+    console.log(message);
+  }
 
   // Reset the form
   form.reset();
