@@ -124,11 +124,22 @@ input:focus {
   box-shadow: 0 0 0 4px rgba(0, 113, 197, 0.15);
 }
 
+button,
+.admin-reset-btn,
+.undo-btn {
+  /* Make all buttons fit text better */
+  min-width: unset;
+  height: auto;
+  padding: 6px 14px;
+  font-size: 15px;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0, 113, 197, 0.08);
+}
+
 button {
   background-color: #0071c5;
   color: white;
   border: none;
-  border-radius: 12px;
   padding: 0 4px;
   min-width: 150px;
   height: 56px;
@@ -425,6 +436,28 @@ select {
 
 .admin-reset-btn:hover {
   background: #c53030;
+}
+
+/* Undo Button */
+.undo-btn {
+  margin: 12px 10px 10px auto;
+  display: block;
+  background: #c53030;
+  color: #ffffff;
+  border: none;
+  border-radius: 6px;
+  padding: 5px;
+  font-size: 10px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(251, 191, 36, 0.08);
+  transition: background 0.2s;
+}
+
+.undo-btn:disabled {
+  background: #e5e7eb;
+  color: #aaa;
+  cursor: not-allowed;
 }
 
 /* Mobile responsive */

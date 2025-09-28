@@ -8,6 +8,7 @@ const attendanceCount = document.getElementById("attendeeCount");
 const waterAttendees = document.getElementById("waterAttendees");
 const zeroAttendees = document.getElementById("zeroAttendees");
 const powerAttendees = document.getElementById("powerAttendees");
+const undoBtn = document.getElementById("undoBtn");
 
 // Track attendance
 let count = 0;
@@ -54,6 +55,10 @@ if (localStorage.getItem("teamAttendees")) {
   renderTeamList("power", powerAttendees);
 }
 
+// Track undo functionality
+let canUndo = false;
+let lastCheckIn = null;
+
 // Handle form submission
 form.addEventListener("submit", function (event) {
   event.preventDefault();
@@ -98,6 +103,14 @@ form.addEventListener("submit", function (event) {
     powerAttendees.appendChild(teamLi);
   }
 
+  // Store last check-in info for undo
+  lastCheckIn = {
+    name: name,
+    team: team,
+  };
+  canUndo = true;
+  undoBtn.disabled = false;
+
   // Check if goal reached
   if (count >= maxCount) {
     // Find winning team
@@ -135,6 +148,62 @@ form.addEventListener("submit", function (event) {
 
   // Reset the form
   form.reset();
+});
+
+// Undo Check-In button functionality
+undoBtn.addEventListener("click", function () {
+  if (!canUndo || !lastCheckIn) {
+    return;
+  }
+
+  // Remove last attendee from team list
+  let teamList = teamAttendees[lastCheckIn.team];
+  if (
+    teamList.length > 0 &&
+    teamList[teamList.length - 1] === lastCheckIn.name
+  ) {
+    teamList.pop();
+    localStorage.setItem("teamAttendees", JSON.stringify(teamAttendees));
+    // Remove last <li> from the correct team ul
+    let ulElement;
+    if (lastCheckIn.team === "water") {
+      ulElement = waterAttendees;
+    } else if (lastCheckIn.team === "zero") {
+      ulElement = zeroAttendees;
+    } else if (lastCheckIn.team === "power") {
+      ulElement = powerAttendees;
+    }
+    if (ulElement && ulElement.lastChild) {
+      ulElement.removeChild(ulElement.lastChild);
+    }
+  }
+
+  // Decrement team count
+  let teamCount = parseInt(
+    document.getElementById(lastCheckIn.team + "Count").textContent
+  );
+  if (teamCount > 0) {
+    teamCount--;
+    document.getElementById(lastCheckIn.team + "Count").textContent = teamCount;
+    localStorage.setItem(lastCheckIn.team + "Count", teamCount);
+  }
+
+  // Decrement overall count
+  if (count > 0) {
+    count--;
+    attendanceCount.textContent = count;
+    localStorage.setItem("attendeeCount", count);
+    const percentage = Math.round((count / maxCount) * 100);
+    progressBar.style.width = percentage + "%";
+  }
+
+  // Clear lastCheckIn and disable undo
+  canUndo = false;
+  lastCheckIn = null;
+  undoBtn.disabled = true;
+
+  // Clear greeting message
+  messageElement.textContent = "";
 });
 
 // Admin Reset button functionality
