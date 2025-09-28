@@ -8,11 +8,32 @@ const attendanceCount = document.getElementById("attendeeCount");
 
 // Track attendance
 let count = 0;
-const maxCount = 15 // Maximum number of attendees
+const maxCount = 15; // Maximum number of attendees
+
+// Load counts from localStorage if they exist
+if (localStorage.getItem("attendeeCount")) {
+  count = parseInt(localStorage.getItem("attendeeCount"));
+  attendanceCount.textContent = count;
+  const percentage = Math.round((count / maxCount) * 100);
+  progressBar.style.width = percentage + "%";
+}
+if (localStorage.getItem("waterCount")) {
+  document.getElementById("waterCount").textContent =
+    localStorage.getItem("waterCount");
+}
+if (localStorage.getItem("zeroCount")) {
+  document.getElementById("zeroCount").textContent =
+    localStorage.getItem("zeroCount");
+}
+if (localStorage.getItem("powerCount")) {
+  document.getElementById("powerCount").textContent =
+    localStorage.getItem("powerCount");
+}
 
 // Handle form submission
 form.addEventListener("submit", function (event) {
   event.preventDefault();
+
   // Custom code runs here when the form is submitted
 
   const name = nameInput.value;
@@ -23,6 +44,7 @@ form.addEventListener("submit", function (event) {
 
   //Increment count and check limit
   count++;
+  localStorage.setItem("attendeeCount", count); // Save attendee count
   console.log("Total Check-ins: ", count);
 
   // Show updated attendee count
@@ -35,7 +57,9 @@ form.addEventListener("submit", function (event) {
 
   //Update team counter
   const teamCounter = document.getElementById(team + "Count");
-  teamCounter.textContent = parseInt(teamCounter.textContent) + 1;
+  let teamCount = parseInt(teamCounter.textContent) + 1;
+  teamCounter.textContent = teamCount;
+  localStorage.setItem(team + "Count", teamCount); // Save team count
 
   // Check if goal reached
   if (count >= maxCount) {
