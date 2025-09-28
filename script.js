@@ -5,6 +5,9 @@ const teamSelect = document.getElementById("teamSelect");
 const messageElement = document.getElementById("greeting");
 const progressBar = document.getElementById("progressBar");
 const attendanceCount = document.getElementById("attendeeCount");
+const waterAttendees = document.getElementById("waterAttendees");
+const zeroAttendees = document.getElementById("zeroAttendees");
+const powerAttendees = document.getElementById("powerAttendees");
 
 // Track attendance
 let count = 0;
@@ -28,6 +31,27 @@ if (localStorage.getItem("zeroCount")) {
 if (localStorage.getItem("powerCount")) {
   document.getElementById("powerCount").textContent =
     localStorage.getItem("powerCount");
+}
+
+// Load attendee names by team from localStorage if they exist
+let teamAttendees = {
+  water: [],
+  zero: [],
+  power: [],
+};
+if (localStorage.getItem("teamAttendees")) {
+  teamAttendees = JSON.parse(localStorage.getItem("teamAttendees"));
+  function renderTeamList(team, ulElement) {
+    ulElement.innerHTML = "";
+    for (let i = 0; i < teamAttendees[team].length; i++) {
+      const li = document.createElement("li");
+      li.textContent = teamAttendees[team][i];
+      ulElement.appendChild(li);
+    }
+  }
+  renderTeamList("water", waterAttendees);
+  renderTeamList("zero", zeroAttendees);
+  renderTeamList("power", powerAttendees);
 }
 
 // Handle form submission
@@ -60,6 +84,19 @@ form.addEventListener("submit", function (event) {
   let teamCount = parseInt(teamCounter.textContent) + 1;
   teamCounter.textContent = teamCount;
   localStorage.setItem(team + "Count", teamCount); // Save team count
+
+  // Add attendee name to the correct team list and localStorage
+  teamAttendees[team].push(name);
+  localStorage.setItem("teamAttendees", JSON.stringify(teamAttendees));
+  const teamLi = document.createElement("li");
+  teamLi.textContent = name;
+  if (team === "water") {
+    waterAttendees.appendChild(teamLi);
+  } else if (team === "zero") {
+    zeroAttendees.appendChild(teamLi);
+  } else if (team === "power") {
+    powerAttendees.appendChild(teamLi);
+  }
 
   // Check if goal reached
   if (count >= maxCount) {
@@ -98,4 +135,16 @@ form.addEventListener("submit", function (event) {
 
   // Reset the form
   form.reset();
+});
+
+// Admin Reset button functionality
+const adminResetBtn = document.getElementById("adminResetBtn");
+adminResetBtn.addEventListener("click", function () {
+  const password = prompt("Enter 4-digit admin password:");
+  if (password === "1234") {
+    localStorage.clear();
+    location.reload();
+  } else {
+    alert("Incorrect password. Reset cancelled.");
+  }
 });

@@ -248,7 +248,12 @@ button .fas {
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: 22px;
   font-weight: 600;
-  background: linear-gradient(135deg, rgba(0, 153, 219, 0.9) 0%,  rgba(0, 104, 181, 0.9) 50%, rgba(0, 60, 116, 0.9) 100%);
+  background: linear-gradient(
+    135deg,
+    rgba(0, 153, 219, 0.9) 0%,
+    rgba(0, 104, 181, 0.9) 50%,
+    rgba(0, 60, 116, 0.9) 100%
+  );
   color: white;
   padding: 18px 24px;
   border-radius: 12px;
@@ -344,6 +349,79 @@ select {
   font-size: 15px;
   font-weight: 500;
   color: #475569;
+}
+
+/* Attendee List */
+.attendee-list-section {
+  margin-top: 28px;
+  text-align: left;
+  background: #f8fafc;
+  border-radius: 10px;
+  padding: 18px 20px;
+  box-shadow: 0 2px 8px rgba(0, 60, 116, 0.04);
+}
+
+.attendee-list-section h4 {
+  font-size: 17px;
+  color: #0071c5;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+#attendeeList {
+  list-style: none;
+  padding-left: 0;
+  margin: 0;
+}
+
+#attendeeList li {
+  font-size: 16px;
+  color: #333;
+  padding: 7px 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+#attendeeList li:last-child {
+  border-bottom: none;
+}
+
+/* Team Attendee List */
+.team-attendee-list {
+  list-style: none;
+  padding-left: 0;
+  margin: 10px 0 0 0;
+  background: #f8fafc;
+  border-radius: 8px;
+  box-shadow: 0 1px 4px rgba(0, 60, 116, 0.04);
+}
+
+.team-attendee-list li {
+  font-size: 15px;
+  color: #333;
+  padding: 6px 12px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.team-attendee-list li:last-child {
+  border-bottom: none;
+}
+
+/* Admin Reset Button */
+.admin-reset-btn {
+  margin-left: 18px;
+  background: #0071c5;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 3px 10px;
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.admin-reset-btn:hover {
+  background: #c53030;
 }
 
 /* Mobile responsive */
