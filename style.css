@@ -260,12 +260,7 @@ button .fas {
   font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif;
   font-size: 22px;
   font-weight: 600;
-  background: linear-gradient(
-    135deg,
-    rgba(0, 153, 219, 0.9) 0%,
-    rgba(0, 104, 181, 0.9) 50%,
-    rgba(0, 60, 116, 0.9) 100%
-  );
+  background: #0071c5;
   color: white;
   padding: 18px 24px;
   border-radius: 12px;
@@ -442,7 +437,7 @@ select {
 .undo-btn {
   margin: 12px 10px 10px auto;
   display: block;
-  background: #c53030;
+  background: #0071c5;
   color: #ffffff;
   border: none;
   border-radius: 6px;
